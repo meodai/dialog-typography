@@ -1,0 +1,38 @@
+{
+  "name": "dialog-typography",
+  "version": "0.1.0",
+  "description": "SASS/SCSS module settings",
+  "main": "gulpfile.js",
+  "scripts": {
+    "test": "gulp test:sass",
+    "build": "gulp build",
+    "dev": "gulp",
+    "deploy": "gulp build && gh-pages -d demo"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/meodai/dialog-typography.git"
+  },
+  "keywords": [
+    "sass",
+    "scss",
+    "design",
+    "typography",
+    "css"
+  ],
+  "author": "meodai",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/meodai/dialog-typography/issues"
+  },
+  "homepage": "https://github.com/meodai/dialog-typography#readme",
+  "devDependencies": {
+    "del": "^2.2.2",
+    "gulp": "^3.9.1",
+    "gulp-header": "^1.8.8",
+    "gulp-load-plugins": "^1.3.0",
+    "gulp-plumber": "^1.1.0",
+    "gulp-sass": "^2.3.2",
+    "node-sass": "^3.8.0"
+  }
+}
