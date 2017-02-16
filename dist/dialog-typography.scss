@@ -1,0 +1,87 @@
+/**
+ * dialog-typography - SASS/SCSS module settings
+ * @version v0.1.0
+ * (c) 2017 meodai
+ * @link https://github.com/meodai/dialog-typography#readme
+ * @license MIT
+ */
+ // Typography settings
+$breakpoint-default: desktop;
+
+$typo: (
+  desktop: (
+    default: (
+      font-size         : 1rem,
+      font-family       : sans-serif,
+      font-weight       : normal,
+      font-style        : normal,
+      line-height       : 1.5
+    ),
+    title: (
+      font-weight       : bold,
+      font-size         : 2.25rem,
+      line-height       : 1.3
+    ),
+    subtitle: (
+      font-weight       : bold,
+      font-size         : 1.75rem,
+      line-height       : 1.2
+    ),
+    paragraph: (
+      font-size         : 1rem
+    )
+  ),
+  mobile: (
+    default: (
+      font-size         : 1.15rem,
+      line-height       : 1.5
+    ),
+    title: (
+      font-size         : 3rem
+    )
+  )
+) !default;
+
+@mixin typo($name: default, $overwrites: null) {
+  $type-breakpoints: map-keys($typo);
+  $default-types: map-get($typo, $breakpoint-default);
+
+  @if map-has-key($default-types, $name) {
+    $breakpoint-styles: map-get($default-types, $name);
+    @if $overwrites {
+      $breakpoint-styles: map-merge($breakpoint-styles, $overwrites);
+    }
+    /// prints styles for the default breakpoint
+    @each $property, $value in $breakpoint-styles {
+      #{$property}: $value
+    }
+    @include typeBreakpoint($type-breakpoints, $name, $default-types);
+  } @else {
+    @warn 'no type named `#{$name}` in $typo';
+  }
+}
+
+// renders modifieres
+@mixin typoBreakpoint($type-breakpoints, $name, $default-types) {
+  @each $breakpoint-name in $type-breakpoints {
+    @if not ($breakpoint-name == $breakpoint-default) {
+      @include bp($breakpoint-name) {
+        $breakpoint-styles: map-get($typo, $breakpoint-name);
+        @include cssify-map(map-get($breakpoint-styles, $name));
+      }
+    }
+  }
+}
+
+// renders default text helper classes
+@mixin textClasses ($prefix: "%t-" ".t-") {
+  $default-types: map-get($typo, $breakpoint-default);
+
+  @each $rule, $key in $default-types {
+    @if not ($rule == default)  {
+      @include prefix-rule($rule, $prefixes: $prefix) {
+        @include type($rule);
+      }
+    }
+  }
+}
