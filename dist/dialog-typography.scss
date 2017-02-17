@@ -5,8 +5,10 @@
  * @link https://github.com/meodai/dialog-typography#readme
  * @license MIT
  */
- // Typography settings
-$breakpoint-default: desktop;
+ 
+
+// Typography settings
+$breakpoint-default: desktop !default;
 
 $typo: (
   desktop: (
@@ -55,9 +57,15 @@ $typo: (
     @each $property, $value in $breakpoint-styles {
       #{$property}: $value
     }
-    @include typeBreakpoint($type-breakpoints, $name, $default-types);
+    @include typoBreakpoint($type-breakpoints, $name, $default-types);
   } @else {
     @warn 'no type named `#{$name}` in $typo';
+  }
+}
+
+@mixin cssify-map($declarations) {
+  @each $property, $value in $declarations {
+    #{$property}: $value;
   }
 }
 
@@ -74,12 +82,11 @@ $typo: (
 }
 
 // renders default text helper classes
-@mixin textClasses ($prefix: "%t-" ".t-") {
+@mixin textClasses ($prefix: '.t-') {
   $default-types: map-get($typo, $breakpoint-default);
-
   @each $rule, $key in $default-types {
     @if not ($rule == default)  {
-      @include prefix-rule($rule, $prefixes: $prefix) {
+      #{$prefix}$rule {
         @include type($rule);
       }
     }
