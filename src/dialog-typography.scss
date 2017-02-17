@@ -79,8 +79,8 @@ $typo: (
   $default-types: map-get($typo, $breakpoint-default);
   @each $rule, $key in $default-types {
     @if not ($rule == default)  {
-      #{$prefix}$rule {
-        @include type($rule);
+      #{$prefix}#{$rule} {
+        @include typo($rule);
       }
     }
   }
