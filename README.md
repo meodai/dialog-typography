@@ -13,6 +13,9 @@ Provides a central place to manage your typography across multiple breakpoints.
 ```
 npm install dialog-typography
 ```
+```
+yarn add dialog-typography
+```
 
 ## Usage ☝️
 
@@ -52,8 +55,42 @@ npm install dialog-typography
     ```
     PS: make sure to add `node_modules` to your [import paths](https://github.com/sass/node-sass#includepaths)
 
-3.
-
+3. Set up your typography.
+    ```scss
+    $typo: (
+      desktop: (
+        default: (
+          font-size         : 1rem,
+          font-family       : sans-serif,
+          font-weight       : normal,
+          font-style        : normal,
+          line-height       : 1.5
+        ),
+        title: (
+          font-weight       : bold,
+          font-size         : 2.25rem,
+          line-height       : 1.3
+        ),
+        subtitle: (
+          font-weight       : bold,
+          font-size         : 1.75rem,
+          line-height       : 1.2
+        ),
+        paragraph: (
+          font-size         : 1rem
+        )
+      ),
+      mobile: (
+        default: (
+          font-size         : 1.15rem,
+          line-height       : 1.5
+        ),
+        title: (
+          font-size         : 3rem
+        )
+      )
+    )
+    ```
 
 ## License 👮🏼
 
