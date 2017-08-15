@@ -1,9 +1,8 @@
 // Typography settings
-$breakpoint-default: desktop !default;
+$dialog-breakpoint-default: desktop !default;
 
 // Typography settings
-
-$typo: (
+$dialog-typo: (
   desktop: (
     default: (
       font-size         : 1.125rem,
@@ -24,14 +23,12 @@ $typo: (
       font-weight       : lighter,
       text-transform    : uppercase,
       line-height       : 1.16667,
-      color             : #000066,
     ),
     heading: (
       font-size         : 1.6667rem,
       font-weight       : bold,
       text-transform    : uppercase,
       line-height       : 1.333,
-      color             : #000066,
     ),
     subheading: (
       font-size         : 1rem,
@@ -64,7 +61,7 @@ $typo: (
       font-size         : 1.125rem,
     ),
     title: (
-      font-size         : 1.125rem,
+      font-size         : 1.1rem,
     ),
   ),
   mobile: (
@@ -89,30 +86,30 @@ $typo: (
   )
 );
 
-$breakpoint-default: desktop;
+$dialog-breakpoint-default: desktop !default;
 
-$breakpoints: (
+$dialog-breakpoints: (
   mobile: 'max-width: 40rem',
   tablet: 'max-width: 64rem',
   desktop: 'min-width: 64.063rem',
-);
+) !default;
 
-$is-fluid: true;
+$dialog-is-fluid: false !default;
 
-$fluid-breakpoint-sizes: (
+$dialog-fluid-breakpoint-sizes: (
   mobile: 40rem,
   tablet: 64rem,
   desktop: 100rem,
-);
+) !default;
 
 // mixins
-$fluid-type-sizes: ();
+$dialog-fluid-type-sizes: ();
 
-@if $is-fluid {
-  $non-default-types: map-remove($typo, $breakpoint-default);
+@if $dialog-is-fluid {
+  $non-default-types: map-remove($dialog-typo, $dialog-breakpoint-default);
   $non-default-breakpoint-keys: map-keys($non-default-types);
 
-  @each $type, $rules in map-get($typo, $breakpoint-default) {
+  @each $type, $rules in map-get($dialog-typo, $dialog-breakpoint-default) {
     @if map-has-key($rules, 'font-size') {
       $fluid-sizes: ();
       $font-size: map-get($rules, 'font-size');
@@ -125,7 +122,7 @@ $fluid-type-sizes: ();
             $non-default-font-size: map-get($non-default-type, 'font-size');
             $fluid-sizes: map-merge(
               $fluid-sizes,
-              (map-get($fluid-breakpoint-sizes, $non-default-breakpoint-name):$non-default-font-size)
+              (map-get($dialog-fluid-breakpoint-sizes, $non-default-breakpoint-name):$non-default-font-size)
             );
           } @else {
             $has-no-font-size: true;
@@ -136,17 +133,17 @@ $fluid-type-sizes: ();
         @if $has-no-font-size {
           $fluid-sizes: map-merge(
             $fluid-sizes,
-            (map-get($fluid-breakpoint-sizes, $non-default-breakpoint-name): $font-size)
+            (map-get($dialog-fluid-breakpoint-sizes, $non-default-breakpoint-name): $font-size)
           );
         }
       }
 
       $fluid-sizes: map-merge(
         $fluid-sizes,
-        (map-get($fluid-breakpoint-sizes, $breakpoint-default): $font-size)
+        (map-get($dialog-fluid-breakpoint-sizes, $dialog-breakpoint-default): $font-size)
       );
 
-      $fluid-type-sizes: map-merge($fluid-type-sizes, ($type: $fluid-sizes)) !global;
+      $dialog-fluid-type-sizes: map-merge($dialog-fluid-type-sizes, ($type: $fluid-sizes)) !global;
     }
   }
 }
@@ -270,14 +267,14 @@ $fluid-type-sizes: ();
 }
 
 @mixin bp($name) {
-  @media (#{map-get($breakpoints, $name)}) {
+  @media (#{map-get($dialog-breakpoints, $name)}) {
     @content
   }
 }
 
-@mixin typo($name: default, $overwrites: null, $fluid: $is-fluid) {
-  $type-breakpoints: map-keys($typo);
-  $default-types: map-get($typo, $breakpoint-default);
+@mixin typo($name: default, $overwrites: null, $fluid: $dialog-is-fluid) {
+  $type-breakpoints: map-keys($dialog-typo);
+  $default-types: map-get($dialog-typo, $dialog-breakpoint-default);
 
   @if map-has-key($default-types, $name) {
     $breakpoint-styles: map-get($default-types, $name);
@@ -286,8 +283,8 @@ $fluid-type-sizes: ();
     }
     /// prints styles for the default breakpoint
     @each $property, $value in $breakpoint-styles {
-      @if $is-fluid and ($property == 'font-size')  {
-        @include poly-fluid-sizing('font-size', map-get($fluid-type-sizes, $name));
+      @if $dialog-is-fluid and ($property == 'font-size')  {
+        @include poly-fluid-sizing('font-size', map-get($dialog-fluid-type-sizes, $name));
       } @else {
         #{$property}: $value;
       }
@@ -296,7 +293,7 @@ $fluid-type-sizes: ();
       @include typoBreakpoint($type-breakpoints, $name, $default-types);
     }
   } @else {
-    @warn 'no type named `#{$name}` in $typo';
+    @warn 'no type named `#{$name}` in $dialog-typo';
   }
 }
 
@@ -309,9 +306,9 @@ $fluid-type-sizes: ();
 // renders modifieres
 @mixin typoBreakpoint($type-breakpoints, $name, $default-types) {
   @each $breakpoint-name in $type-breakpoints {
-    @if not ($breakpoint-name == $breakpoint-default) {
+    @if not ($breakpoint-name == $dialog-breakpoint-default) {
       @include bp($breakpoint-name) {
-        $breakpoint-styles: map-get($typo, $breakpoint-name);
+        $breakpoint-styles: map-get($dialog-typo, $breakpoint-name);
         @include cssify-map(map-get($breakpoint-styles, $name));
       }
     }
@@ -320,7 +317,7 @@ $fluid-type-sizes: ();
 
 // renders default text helper classes
 @mixin textClasses ($prefix: '.t-') {
-  $default-types: map-get($typo, $breakpoint-default);
+  $default-types: map-get($dialog-typo, $dialog-breakpoint-default);
   @each $rule, $key in $default-types {
     @if not ($rule == default)  {
       #{$prefix}#{$rule} {
