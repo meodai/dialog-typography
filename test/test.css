@@ -1,0 +1,173 @@
+html {
+  font-size: 1rem;
+  font-family: sans-serif;
+  font-weight: normal;
+  font-style: normal;
+  line-height: 1.375; }
+  @media (min-width: 40rem) {
+    html {
+      font-size: calc(0vw + 1rem); } }
+  @media (min-width: 64rem) {
+    html {
+      font-size: calc(0.34722vw + 0.77778rem); } }
+  @media (min-width: 100rem) {
+    html {
+      font-size: 1.125rem; } }
+
+.t-hero {
+  font-size: 1.75rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  line-height: 1;
+  color: #000066; }
+  @media (min-width: 40rem) {
+    .t-hero {
+      font-size: calc(5.20833vw - 0.33333rem); } }
+  @media (min-width: 64rem) {
+    .t-hero {
+      font-size: calc(-0.92583vw + 3.59253rem); } }
+  @media (min-width: 100rem) {
+    .t-hero {
+      font-size: 2.6667rem; } }
+
+.t-subhero {
+  font-size: 1rem;
+  font-weight: lighter;
+  text-transform: uppercase;
+  line-height: 1.16667;
+  color: #000066; }
+  @media (min-width: 40rem) {
+    .t-subhero {
+      font-size: calc(2.08333vw + 0.16667rem); } }
+  @media (min-width: 64rem) {
+    .t-subhero {
+      font-size: calc(-0.46389vw + 1.79689rem); } }
+  @media (min-width: 100rem) {
+    .t-subhero {
+      font-size: 1.333rem; } }
+
+.t-heading {
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  line-height: 1.333;
+  color: #000066; }
+  @media (min-width: 40rem) {
+    .t-heading {
+      font-size: calc(1.5625vw + 0.875rem); } }
+  @media (min-width: 64rem) {
+    .t-heading {
+      font-size: calc(-0.57861vw + 2.24531rem); } }
+  @media (min-width: 100rem) {
+    .t-heading {
+      font-size: 1.6667rem; } }
+
+.t-subheading {
+  font-size: 1rem;
+  font-weight: lighter;
+  text-transform: uppercase;
+  line-height: 1.333;
+  color: #000066; }
+  @media (min-width: 40rem) {
+    .t-subheading {
+      font-size: calc(0.52083vw + 0.79167rem); } }
+  @media (min-width: 64rem) {
+    .t-subheading {
+      font-size: calc(-0.34722vw + 1.34722rem); } }
+  @media (min-width: 100rem) {
+    .t-subheading {
+      font-size: 1rem; } }
+
+.t-title {
+  font-size: 1rem;
+  font-weight: bold;
+  line-height: 1.222;
+  color: #000066; }
+  @media (min-width: 40rem) {
+    .t-title {
+      font-size: calc(0.52083vw + 0.79167rem); } }
+  @media (min-width: 64rem) {
+    .t-title {
+      font-size: calc(-0.34722vw + 1.34722rem); } }
+  @media (min-width: 100rem) {
+    .t-title {
+      font-size: 1rem; } }
+
+.richtext h1 {
+  font-size: 1.75rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  line-height: 1;
+  color: #000066; }
+  @media (min-width: 40rem) {
+    .richtext h1 {
+      font-size: calc(5.20833vw - 0.33333rem); } }
+  @media (min-width: 64rem) {
+    .richtext h1 {
+      font-size: calc(-0.92583vw + 3.59253rem); } }
+  @media (min-width: 100rem) {
+    .richtext h1 {
+      font-size: 2.6667rem; } }
+
+.richtext h2 {
+  font-size: 1rem;
+  font-weight: lighter;
+  text-transform: uppercase;
+  line-height: 1.16667;
+  color: #000066; }
+  @media (min-width: 40rem) {
+    .richtext h2 {
+      font-size: calc(2.08333vw + 0.16667rem); } }
+  @media (min-width: 64rem) {
+    .richtext h2 {
+      font-size: calc(-0.46389vw + 1.79689rem); } }
+  @media (min-width: 100rem) {
+    .richtext h2 {
+      font-size: 1.333rem; } }
+
+.richtext h3 {
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  line-height: 1.333;
+  color: #000066; }
+  @media (min-width: 40rem) {
+    .richtext h3 {
+      font-size: calc(1.5625vw + 0.875rem); } }
+  @media (min-width: 64rem) {
+    .richtext h3 {
+      font-size: calc(-0.57861vw + 2.24531rem); } }
+  @media (min-width: 100rem) {
+    .richtext h3 {
+      font-size: 1.6667rem; } }
+
+.richtext h4 {
+  font-size: 1rem;
+  font-weight: lighter;
+  text-transform: uppercase;
+  line-height: 1.333;
+  color: #000066; }
+  @media (min-width: 40rem) {
+    .richtext h4 {
+      font-size: calc(0.52083vw + 0.79167rem); } }
+  @media (min-width: 64rem) {
+    .richtext h4 {
+      font-size: calc(-0.34722vw + 1.34722rem); } }
+  @media (min-width: 100rem) {
+    .richtext h4 {
+      font-size: 1rem; } }
+
+.richtext h5 {
+  font-size: 1rem;
+  font-weight: bold;
+  line-height: 1.222;
+  color: #000066; }
+  @media (min-width: 40rem) {
+    .richtext h5 {
+      font-size: calc(0.52083vw + 0.79167rem); } }
+  @media (min-width: 64rem) {
+    .richtext h5 {
+      font-size: calc(-0.34722vw + 1.34722rem); } }
+  @media (min-width: 100rem) {
+    .richtext h5 {
+      font-size: 1rem; } }

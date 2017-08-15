@@ -1,43 +1,281 @@
-
-
 // Typography settings
 $breakpoint-default: desktop !default;
+
+// Typography settings
 
 $typo: (
   desktop: (
     default: (
-      font-size         : 1rem,
+      font-size         : 1.125rem,
       font-family       : sans-serif,
       font-weight       : normal,
       font-style        : normal,
-      line-height       : 1.5
+      line-height       : 1.375,
+    ),
+    hero: (
+      font-size         : 2.6667rem,
+      font-weight       : bold,
+      text-transform    : uppercase,
+      line-height       : 1,
+      color             : #000066,
+    ),
+    subhero: (
+      font-size         : 1.333rem,
+      font-weight       : lighter,
+      text-transform    : uppercase,
+      line-height       : 1.16667,
+      color             : #000066,
+    ),
+    heading: (
+      font-size         : 1.6667rem,
+      font-weight       : bold,
+      text-transform    : uppercase,
+      line-height       : 1.333,
+      color             : #000066,
+    ),
+    subheading: (
+      font-size         : 1rem,
+      font-weight       : lighter,
+      text-transform    : uppercase,
+      line-height       : 1.333,
+      color             : #000066,
     ),
     title: (
+      font-size         : 1rem,
       font-weight       : bold,
-      font-size         : 2.25rem,
-      line-height       : 1.3
+      line-height       : 1.222,
+      color             : #000066,
     ),
-    subtitle: (
-      font-weight       : bold,
-      font-size         : 1.75rem,
-      line-height       : 1.2
+  ),
+  tablet: (
+    default: (
+      font-size         : 1rem,
     ),
-    paragraph: (
-      font-size         : 1rem
-    )
+    hero: (
+      font-size         : 3rem,
+    ),
+    subhero: (
+      font-size         : 1.5rem,
+    ),
+    heading: (
+      font-size         : 1.875rem,
+    ),
+    subheading: (
+      font-size         : 1.125rem,
+    ),
+    title: (
+      font-size         : 1.125rem,
+    ),
   ),
   mobile: (
     default: (
-      font-size         : 1.15rem,
-      line-height       : 1.5
+      font-size         : 1rem,
+    ),
+    hero: (
+      font-size         : 1.75rem,
+    ),
+    subhero: (
+      font-size         : 1rem,
+    ),
+    heading: (
+      font-size         : 1.5rem,
+    ),
+    subheading: (
+      font-size         : 1rem,
     ),
     title: (
-      font-size         : 3rem
-    )
+      font-size         : 1rem,
+    ),
   )
-) !default;
+);
 
-@mixin typo($name: default, $overwrites: null) {
+$breakpoint-default: desktop;
+
+$breakpoints: (
+  mobile: 'max-width: 40rem',
+  tablet: 'max-width: 64rem',
+  desktop: 'min-width: 64.063rem',
+);
+
+$is-fluid: true;
+
+$fluid-breakpoint-sizes: (
+  mobile: 40rem,
+  tablet: 64rem,
+  desktop: 100rem,
+);
+
+// mixins
+$fluid-type-sizes: ();
+
+@if $is-fluid {
+  $non-default-types: map-remove($typo, $breakpoint-default);
+  $non-default-breakpoint-keys: map-keys($non-default-types);
+
+  @each $type, $rules in map-get($typo, $breakpoint-default) {
+    @if map-has-key($rules, 'font-size') {
+      $fluid-sizes: ();
+      $font-size: map-get($rules, 'font-size');
+      $has-no-font-size: false;
+
+      @each $non-default-breakpoint-name, $non-default-rules in $non-default-types {
+        @if map-has-key($non-default-rules, $type) {
+          $non-default-type: map-get($non-default-rules, $type);
+          @if map-has-hey($non-default-type, 'font-size') {
+            $non-default-font-size: map-get($non-default-type, 'font-size');
+            $fluid-sizes: map-merge(
+              $fluid-sizes,
+              (map-get($fluid-breakpoint-sizes, $non-default-breakpoint-name):$non-default-font-size)
+            );
+          } @else {
+            $has-no-font-size: true;
+          }
+        } @else {
+          $has-no-font-size: true;
+        }
+        @if $has-no-font-size {
+          $fluid-sizes: map-merge(
+            $fluid-sizes,
+            (map-get($fluid-breakpoint-sizes, $non-default-breakpoint-name): $font-size)
+          );
+        }
+      }
+
+      $fluid-sizes: map-merge(
+        $fluid-sizes,
+        (map-get($fluid-breakpoint-sizes, $breakpoint-default): $font-size)
+      );
+
+      $fluid-type-sizes: map-merge($fluid-type-sizes, ($type: $fluid-sizes)) !global;
+    }
+  }
+}
+
+/// poly-fluid-sizing
+/// Generate linear interpolated size values through multiple break points
+/// @param $property - A string CSS property name
+/// @param $map - A SASS map of viewport unit and size value pairs
+/// @requires function linear-interpolation
+/// @requires function map-sort
+/// @example
+///   @include poly-fluid-sizing('font-size', (576px: 22px, 768px: 24px, 992px: 34px));
+/// @author Jake Wilson <jake.e.wilson@gmail.com>
+@mixin poly-fluid-sizing($property, $map) {
+  // Get the number of provided breakpoints
+  $length: length(map-keys($map));
+
+  // Error if the number of breakpoints is < 2
+  @if ($length < 2) {
+    @error 'poly-fluid-sizing() $map requires at least values'
+  }
+
+  // Sort the map by viewport width (key)
+  $map: map-sort($map);
+  $keys: map-keys($map);
+
+  // Minimum size
+  #{$property}: map-get($map, nth($keys,1));
+
+  // Interpolated size through breakpoints
+  @for $i from 1 through ($length - 1) {
+    @media (min-width:nth($keys,$i)) {
+      #{$property}: linear-interpolation((nth($keys,$i): map-get($map, nth($keys,$i)), nth($keys,($i+1)): map-get($map, nth($keys,($i + 1)))));
+    }
+  }
+
+  // Maxmimum size
+  @media (min-width:nth($keys, $length)) {
+    #{$property}: map-get($map, nth($keys, $length));
+  }
+}
+
+/// linear-interpolation
+/// Calculate the definition of a line between two points
+/// @param $map - A SASS map of viewport widths and size value pairs
+/// @returns A linear equation as a calc() function
+/// @example
+///   font-size: linear-interpolation((320px: 18px, 768px: 26px));
+/// @author Jake Wilson <jake.e.wilson@gmail.com>
+@function linear-interpolation($map) {
+  $keys: map-keys($map);
+  @if (length($keys) != 2) {
+    @error "linear-interpolation() $map must be exactly 2 values";
+  }
+  // The slope
+  $m: (map-get($map, nth($keys, 2)) - map-get($map, nth($keys, 1)))/(nth($keys, 2) - nth($keys,1));
+
+  // The y-intercept
+  $b: map-get($map, nth($keys, 1)) - $m * nth($keys, 1);
+
+  // Determine if the sign should be positive or negative
+  $sign: "+";
+  @if ($b < 0) {
+    $sign: "-";
+    $b: abs($b);
+  }
+
+  @return calc(#{$m*100}vw #{$sign} #{$b});
+}
+
+/// list-sort
+/// Sort a SASS list
+/// @param $list - A SASS list
+/// @returns A sorted SASS list
+/// @requires function list-remove
+/// @author Jake Wilson <jake.e.wilson@gmail.com>
+@function list-sort($list) {
+  $sortedlist: ();
+  @while length($list) > 0 {
+    $value: nth($list,1);
+    @each $item in $list {
+      @if $item < $value {
+        $value: $item;
+      }
+    }
+    $sortedlist: append($sortedlist, $value, 'space');
+    $list: list-remove($list, index($list, $value));
+  }
+  @return $sortedlist;
+}
+
+/// map-sort
+/// Sort map by keys
+/// @param $map - A SASS map
+/// @returns A SASS map sorted by keys
+/// @requires function list-sort
+/// @author Jake Wilson <jake.e.wilson@gmail.com>
+@function map-sort($map) {
+  $keys: list-sort(map-keys($map));
+  $sortedMap: ();
+  @each $key in $keys {
+    $sortedMap: map-merge($sortedMap, ($key: map-get($map, $key)));
+  }
+  @return $sortedMap;
+}
+
+/// list-remove
+/// Remove an item from a list
+/// @param $list - A SASS list
+/// @param $index - The list index to remove
+/// @returns A SASS list
+/// @author Jake Wilson <jake.e.wilson@gmail.com>
+@function list-remove($list, $index) {
+  $newList: ();
+  @for $i from 1 through length($list) {
+    @if $i != $index {
+      $newList: append($newList, nth($list,$i), 'space');
+    }
+  }
+  @return $newList;
+}
+
+@mixin bp($name) {
+  @media (#{map-get($breakpoints, $name)}) {
+    @content
+  }
+}
+
+@mixin typo($name: default, $overwrites: null, $fluid: $is-fluid) {
   $type-breakpoints: map-keys($typo);
   $default-types: map-get($typo, $breakpoint-default);
 
@@ -48,9 +286,15 @@ $typo: (
     }
     /// prints styles for the default breakpoint
     @each $property, $value in $breakpoint-styles {
-      #{$property}: $value
+      @if $is-fluid and ($property == 'font-size')  {
+        @include poly-fluid-sizing('font-size', map-get($fluid-type-sizes, $name));
+      } @else {
+        #{$property}: $value
+      }
     }
-    @include typoBreakpoint($type-breakpoints, $name, $default-types);
+    @if not $fluid {
+      @include typoBreakpoint($type-breakpoints, $name, $default-types);
+    }
   } @else {
     @warn 'no type named `#{$name}` in $typo';
   }
