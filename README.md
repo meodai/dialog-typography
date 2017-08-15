@@ -28,7 +28,7 @@ yarn add dialog-typography
    ```scss
    $breakpoints: (
       desktop: 'min-width: 701px',
-      mobile: 'max-wdith: 700px'
+      mobile: 'max-width: 700px'
    );
 
    @mixin bp($name) {
