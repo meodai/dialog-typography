@@ -26,13 +26,13 @@ yarn add dialog-typography
    For example:
 
    ```scss
-   $breakpoints: (
+   $dialog-breakpoints: (
       desktop: 'min-width: 701px',
       mobile: 'max-width: 700px'
    );
 
    @mixin bp($name) {
-     @media (#{map-get($breakpoints, $name)}) {
+     @media (#{map-get($dialog-breakpoints, $name)}) {
        @content
      }
    }
@@ -57,7 +57,7 @@ yarn add dialog-typography
 
 3. Set up your typography.
     ```scss
-    $typo: (
+    $dialog-typo: (
       desktop: (
         default: (
           font-size         : 1rem,
