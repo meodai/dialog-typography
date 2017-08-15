@@ -1,6 +1,6 @@
 /**
  * dialog-typography - SASS/SCSS module settings
- * @version v1.0.0
+ * @version v1.1.0
  * (c) 2017 meodai
  * @link https://github.com/meodai/dialog-typography#readme
  * @license MIT
@@ -91,7 +91,7 @@ $dialog-typo: (
       font-size         : 1rem,
     ),
   )
-);
+) !default;
 
 $dialog-breakpoint-default: desktop !default;
 
@@ -129,7 +129,7 @@ $dialog-fluid-type-sizes: ();
             $non-default-font-size: map-get($non-default-type, 'font-size');
             $fluid-sizes: map-merge(
               $fluid-sizes,
-              (map-get($dialog-fluid-breakpoint-sizes, $non-default-breakpoint-name):$non-default-font-size)
+              (map-get($dialog-fluid-breakpoint-sizes, $non-default-breakpoint-name): $non-default-font-size)
             );
           } @else {
             $has-no-font-size: true;
