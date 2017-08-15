@@ -6,7 +6,7 @@
 [![npm version](https://badge.fury.io/js/dialog-typography.svg)](https://badge.fury.io/js/dialog-typography)
 [![travis build](https://api.travis-ci.org/meodai/dialog-typography.svg?branch=master)](https://travis-ci.org/meodai/dialog-typography)
 
-Provides a central place to manage your typography across multiple breakpoints.
+Provides a central place to manage your typography across multiple breakpoints. [Demo](https://www.sassmeister.com/gist/7caa3ca64940a0a47caf09bd0e852eda)
 
 ## Installation 💾
 
