@@ -1,1 +1,30 @@
 @import 'dialog-typography';
+
+
+// actual SCSS
+$richtext-wrapper-class: richtext;
+
+html {
+  @include typo('default');
+}
+
+// generates text heloer classes
+@include textClasses;
+
+.#{$richtext-wrapper-class} {
+  h1 {
+    @include typo('hero');
+  }
+  h2 {
+    @include typo('subhero');
+  }
+  h3 {
+    @include typo('heading');
+  }
+  h4 {
+    @include typo('subheading');
+  }
+  h5 {
+    @include typo('title');
+  }
+}
