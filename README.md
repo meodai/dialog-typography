@@ -91,6 +91,14 @@ yarn add dialog-typography
       )
     )
     ```
+4. Use in your components
+```scss
+.yourComponent {
+   &__title {
+      @include typo(title)
+   }
+}
+```
 
 ## License 👮🏼
 
