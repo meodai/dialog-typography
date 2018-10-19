@@ -6,7 +6,7 @@ $dialog-typo: (
   desktop: (
     default: (
       font-size         : 1.125rem,
-      font-family       : sans-serif,
+      font-family       : '"Helvetica Neue", Helvetica, Arial, sans-serif',
       font-weight       : normal,
       font-style        : normal,
       line-height       : 1.375,
@@ -285,6 +285,8 @@ $dialog-fluid-type-sizes: ();
     @each $property, $value in $breakpoint-styles {
       @if $dialog-is-fluid and ($property == 'font-size')  {
         @include poly-fluid-sizing('font-size', map-get($dialog-fluid-type-sizes, $name));
+      } @else if $property == 'font-family' {
+        #{$property}: unquote($value);
       } @else {
         #{$property}: $value;
       }
