@@ -118,7 +118,7 @@ $dialog-fluid-type-sizes: ();
       @each $non-default-breakpoint-name, $non-default-rules in $non-default-types {
         @if map-has-key($non-default-rules, $type) {
           $non-default-type: map-get($non-default-rules, $type);
-          @if map-has-hey($non-default-type, 'font-size') {
+          @if map-has-key($non-default-type, 'font-size') {
             $non-default-font-size: map-get($non-default-type, 'font-size');
             $fluid-sizes: map-merge(
               $fluid-sizes,
