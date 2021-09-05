@@ -1,9 +1,9 @@
-const gulp = require('gulp')
+const gulp = require('gulp');
 const gulpLoadPlugins = require('gulp-load-plugins');
 const del = require('del');
 const $ = gulpLoadPlugins();
 const pkg = require('./package.json');
-const sass = require('gulp-sass');
+const sass = require('gulp-sass')(require('sass'));
 
 // Banner
 const banner = ['/**',
@@ -54,6 +54,4 @@ gulp.task('test:sass', () => {
         .pipe(gulp.dest(paths.test.sass));
 });
 
-gulp.task('build', ['styles', 'styles:sass'])
-
-gulp.task('default', ['build']);
+exports.default = gulp.series('styles', 'styles:sass');

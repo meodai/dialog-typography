@@ -1,4 +1,5 @@
 @use "sass:math";
+@use "sass:map";
 
 // Typography settings
 $dialog-breakpoint-default: desktop !default;
@@ -108,23 +109,23 @@ $dialog-fluid-breakpoint-sizes: (
 $dialog-fluid-type-sizes: ();
 
 @if $dialog-is-fluid {
-  $non-default-types: map-remove($dialog-typo, $dialog-breakpoint-default);
-  $non-default-breakpoint-keys: map-keys($non-default-types);
+  $non-default-types: map.remove($dialog-typo, $dialog-breakpoint-default);
+  $non-default-breakpoint-keys: map.keys($non-default-types);
 
-  @each $type, $rules in map-get($dialog-typo, $dialog-breakpoint-default) {
-    @if map-has-key($rules, 'font-size') {
+  @each $type, $rules in map.get($dialog-typo, $dialog-breakpoint-default) {
+    @if map.has-key($rules, 'font-size') {
       $fluid-sizes: ();
-      $font-size: map-get($rules, 'font-size');
+      $font-size: map.get($rules, 'font-size');
       $has-no-font-size: false;
 
       @each $non-default-breakpoint-name, $non-default-rules in $non-default-types {
-        @if map-has-key($non-default-rules, $type) {
-          $non-default-type: map-get($non-default-rules, $type);
-          @if map-has-key($non-default-type, 'font-size') {
-            $non-default-font-size: map-get($non-default-type, 'font-size');
-            $fluid-sizes: map-merge(
+        @if map.has-key($non-default-rules, $type) {
+          $non-default-type: map.get($non-default-rules, $type);
+          @if map.has-key($non-default-type, 'font-size') {
+            $non-default-font-size: map.get($non-default-type, 'font-size');
+            $fluid-sizes: map.merge(
               $fluid-sizes,
-              (map-get($dialog-fluid-breakpoint-sizes, $non-default-breakpoint-name): $non-default-font-size)
+              (map.get($dialog-fluid-breakpoint-sizes, $non-default-breakpoint-name): $non-default-font-size)
             );
           } @else {
             $has-no-font-size: true;
@@ -133,19 +134,19 @@ $dialog-fluid-type-sizes: ();
           $has-no-font-size: true;
         }
         @if $has-no-font-size {
-          $fluid-sizes: map-merge(
+          $fluid-sizes: map.merge(
             $fluid-sizes,
-            (map-get($dialog-fluid-breakpoint-sizes, $non-default-breakpoint-name): $font-size)
+            (map.get($dialog-fluid-breakpoint-sizes, $non-default-breakpoint-name): $font-size)
           );
         }
       }
 
-      $fluid-sizes: map-merge(
+      $fluid-sizes: map.merge(
         $fluid-sizes,
-        (map-get($dialog-fluid-breakpoint-sizes, $dialog-breakpoint-default): $font-size)
+        (map.get($dialog-fluid-breakpoint-sizes, $dialog-breakpoint-default): $font-size)
       );
 
-      $dialog-fluid-type-sizes: map-merge($dialog-fluid-type-sizes, ($type: $fluid-sizes)) !global;
+      $dialog-fluid-type-sizes: map.merge($dialog-fluid-type-sizes, ($type: $fluid-sizes)) !global;
     }
   }
 }
@@ -161,7 +162,7 @@ $dialog-fluid-type-sizes: ();
 /// @author Jake Wilson <jake.e.wilson@gmail.com>
 @mixin poly-fluid-sizing($property, $map) {
   // Get the number of provided breakpoints
-  $length: length(map-keys($map));
+  $length: length(map.keys($map));
 
   // Error if the number of breakpoints is < 2
   @if ($length < 2) {
@@ -170,21 +171,21 @@ $dialog-fluid-type-sizes: ();
 
   // Sort the map by viewport width (key)
   $map: map-sort($map);
-  $keys: map-keys($map);
+  $keys: map.keys($map);
 
   // Minimum size
-  #{$property}: map-get($map, nth($keys, 1));
+  #{$property}: map.get($map, nth($keys, 1));
 
   // Interpolated size through breakpoints
   @for $i from 1 through ($length - 1) {
     @media (min-width: nth($keys, $i)) {
-      #{$property}: linear-interpolation((nth($keys, $i): map-get($map, nth($keys, $i)), nth($keys, ($i+1)): map-get($map, nth($keys, ($i + 1)))));
+      #{$property}: linear-interpolation((nth($keys, $i): map.get($map, nth($keys, $i)), nth($keys, ($i+1)): map.get($map, nth($keys, ($i + 1)))));
     }
   }
 
   // Maxmimum size
   @media (min-width: nth($keys, $length)) {
-    #{$property}: map-get($map, nth($keys, $length));
+    #{$property}: map.get($map, nth($keys, $length));
   }
 }
 
@@ -196,15 +197,16 @@ $dialog-fluid-type-sizes: ();
 ///   font-size: linear-interpolation((320px: 18px, 768px: 26px));
 /// @author Jake Wilson <jake.e.wilson@gmail.com>
 @function linear-interpolation($map) {
-  $keys: map-keys($map);
+  $keys: map.keys($map);
   @if (length($keys) != 2) {
     @error 'linear-interpolation() $map must be exactly 2 values';
   }
+  
   // The slope
-  $m: math.div(map-get($map, nth($keys, 2)) - map-get($map, nth($keys, 1)), nth($keys, 2) - nth($keys, 1));
+  $m: math.div(map.get($map, nth($keys, 2)) - map.get($map, nth($keys, 1)), nth($keys, 2) - nth($keys, 1));
 
   // The y-intercept
-  $b: map-get($map, nth($keys, 1)) - $m * nth($keys, 1);
+  $b: map.get($map, nth($keys, 1)) - $m * nth($keys, 1);
 
   // Determine if the sign should be positive or negative
   $sign: '+';
@@ -244,10 +246,10 @@ $dialog-fluid-type-sizes: ();
 /// @requires function list-sort
 /// @author Jake Wilson <jake.e.wilson@gmail.com>
 @function map-sort($map) {
-  $keys: list-sort(map-keys($map));
+  $keys: list-sort(map.keys($map));
   $sorted-map: ();
   @each $key in $keys {
-    $sorted-map: map-merge($sorted-map, ($key: map-get($map, $key)));
+    $sorted-map: map.merge($sorted-map, ($key: map.get($map, $key)));
   }
   @return $sorted-map;
 }
@@ -269,24 +271,24 @@ $dialog-fluid-type-sizes: ();
 }
 
 @mixin bp($name) {
-  @media (#{map-get($dialog-breakpoints, $name)}) {
+  @media (#{map.get($dialog-breakpoints, $name)}) {
     @content
   }
 }
 
 @mixin typo($name: default, $overwrites: null, $fluid: $dialog-is-fluid) {
-  $type-breakpoints: map-keys($dialog-typo);
-  $default-types: map-get($dialog-typo, $dialog-breakpoint-default);
+  $type-breakpoints: map.keys($dialog-typo);
+  $default-types: map.get($dialog-typo, $dialog-breakpoint-default);
 
-  @if map-has-key($default-types, $name) {
-    $breakpoint-styles: map-get($default-types, $name);
+  @if map.has-key($default-types, $name) {
+    $breakpoint-styles: map.get($default-types, $name);
     @if $overwrites {
-      $breakpoint-styles: map-merge($breakpoint-styles, $overwrites);
+      $breakpoint-styles: map.merge($breakpoint-styles, $overwrites);
     }
     /// prints styles for the default breakpoint
     @each $property, $value in $breakpoint-styles {
       @if $dialog-is-fluid and ($property == 'font-size')  {
-        @include poly-fluid-sizing('font-size', map-get($dialog-fluid-type-sizes, $name));
+        @include poly-fluid-sizing('font-size', map.get($dialog-fluid-type-sizes, $name));
       } @else if $property == 'font-family' {
         #{$property}: unquote($value);
       } @else {
@@ -312,8 +314,8 @@ $dialog-fluid-type-sizes: ();
   @each $breakpoint-name in $type-breakpoints {
     @if not ($breakpoint-name == $dialog-breakpoint-default) {
       @include bp($breakpoint-name) {
-        $breakpoint-styles: map-get($dialog-typo, $breakpoint-name);
-        @include cssify-map(map-get($breakpoint-styles, $name));
+        $breakpoint-styles: map.get($dialog-typo, $breakpoint-name);
+        @include cssify-map(map.get($breakpoint-styles, $name));
       }
     }
   }
@@ -321,7 +323,7 @@ $dialog-fluid-type-sizes: ();
 
 // renders default text helper classes
 @mixin textClasses ($prefix: '.t-') {
-  $default-types: map-get($dialog-typo, $dialog-breakpoint-default);
+  $default-types: map.get($dialog-typo, $dialog-breakpoint-default);
   @each $rule, $key in $default-types {
     @if not ($rule == default)  {
       #{$prefix}#{$rule} {

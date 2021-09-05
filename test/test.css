@@ -1,136 +1,187 @@
 html {
   font-size: 1.125rem;
-  font-family: sans-serif;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-weight: normal;
   font-style: normal;
-  line-height: 1.375; }
-  @media (max-width: 64rem) {
-    html {
-      font-size: 1rem; } }
-  @media (max-width: 40rem) {
-    html {
-      font-size: 1rem; } }
+  line-height: 1.375;
+}
+@media (max-width: 64rem) {
+  html {
+    font-size: 1rem;
+  }
+}
+@media (max-width: 40rem) {
+  html {
+    font-size: 1rem;
+  }
+}
 
 .t-hero {
   font-size: 2.6667rem;
   font-weight: bold;
   text-transform: uppercase;
   line-height: 1;
-  color: #000066; }
-  @media (max-width: 64rem) {
-    .t-hero {
-      font-size: 3rem; } }
-  @media (max-width: 40rem) {
-    .t-hero {
-      font-size: 1.75rem; } }
+  color: #000066;
+}
+@media (max-width: 64rem) {
+  .t-hero {
+    font-size: 3rem;
+  }
+}
+@media (max-width: 40rem) {
+  .t-hero {
+    font-size: 1.75rem;
+  }
+}
 
 .t-subhero {
   font-size: 1.333rem;
   font-weight: lighter;
   text-transform: uppercase;
-  line-height: 1.16667; }
-  @media (max-width: 64rem) {
-    .t-subhero {
-      font-size: 1.5rem; } }
-  @media (max-width: 40rem) {
-    .t-subhero {
-      font-size: 1rem; } }
+  line-height: 1.16667;
+}
+@media (max-width: 64rem) {
+  .t-subhero {
+    font-size: 1.5rem;
+  }
+}
+@media (max-width: 40rem) {
+  .t-subhero {
+    font-size: 1rem;
+  }
+}
 
 .t-heading {
   font-size: 1.6667rem;
   font-weight: bold;
   text-transform: uppercase;
-  line-height: 1.333; }
-  @media (max-width: 64rem) {
-    .t-heading {
-      font-size: 1.875rem; } }
-  @media (max-width: 40rem) {
-    .t-heading {
-      font-size: 1.5rem; } }
+  line-height: 1.333;
+}
+@media (max-width: 64rem) {
+  .t-heading {
+    font-size: 1.875rem;
+  }
+}
+@media (max-width: 40rem) {
+  .t-heading {
+    font-size: 1.5rem;
+  }
+}
 
 .t-subheading {
   font-size: 1rem;
   font-weight: lighter;
   text-transform: uppercase;
   line-height: 1.333;
-  color: #000066; }
-  @media (max-width: 64rem) {
-    .t-subheading {
-      font-size: 1.125rem; } }
-  @media (max-width: 40rem) {
-    .t-subheading {
-      font-size: 1rem; } }
+  color: #000066;
+}
+@media (max-width: 64rem) {
+  .t-subheading {
+    font-size: 1.125rem;
+  }
+}
+@media (max-width: 40rem) {
+  .t-subheading {
+    font-size: 1rem;
+  }
+}
 
 .t-title {
   font-size: 1rem;
   font-weight: bold;
   line-height: 1.222;
-  color: #000066; }
-  @media (max-width: 64rem) {
-    .t-title {
-      font-size: 1.1rem; } }
-  @media (max-width: 40rem) {
-    .t-title {
-      font-size: 1rem; } }
+  color: #000066;
+}
+@media (max-width: 64rem) {
+  .t-title {
+    font-size: 1.1rem;
+  }
+}
+@media (max-width: 40rem) {
+  .t-title {
+    font-size: 1rem;
+  }
+}
 
 .richtext h1 {
   font-size: 2.6667rem;
   font-weight: bold;
   text-transform: uppercase;
   line-height: 1;
-  color: #000066; }
-  @media (max-width: 64rem) {
-    .richtext h1 {
-      font-size: 3rem; } }
-  @media (max-width: 40rem) {
-    .richtext h1 {
-      font-size: 1.75rem; } }
-
+  color: #000066;
+}
+@media (max-width: 64rem) {
+  .richtext h1 {
+    font-size: 3rem;
+  }
+}
+@media (max-width: 40rem) {
+  .richtext h1 {
+    font-size: 1.75rem;
+  }
+}
 .richtext h2 {
   font-size: 1.333rem;
   font-weight: lighter;
   text-transform: uppercase;
-  line-height: 1.16667; }
-  @media (max-width: 64rem) {
-    .richtext h2 {
-      font-size: 1.5rem; } }
-  @media (max-width: 40rem) {
-    .richtext h2 {
-      font-size: 1rem; } }
-
+  line-height: 1.16667;
+}
+@media (max-width: 64rem) {
+  .richtext h2 {
+    font-size: 1.5rem;
+  }
+}
+@media (max-width: 40rem) {
+  .richtext h2 {
+    font-size: 1rem;
+  }
+}
 .richtext h3 {
   font-size: 1.6667rem;
   font-weight: bold;
   text-transform: uppercase;
-  line-height: 1.333; }
-  @media (max-width: 64rem) {
-    .richtext h3 {
-      font-size: 1.875rem; } }
-  @media (max-width: 40rem) {
-    .richtext h3 {
-      font-size: 1.5rem; } }
-
+  line-height: 1.333;
+}
+@media (max-width: 64rem) {
+  .richtext h3 {
+    font-size: 1.875rem;
+  }
+}
+@media (max-width: 40rem) {
+  .richtext h3 {
+    font-size: 1.5rem;
+  }
+}
 .richtext h4 {
   font-size: 1rem;
   font-weight: lighter;
   text-transform: uppercase;
   line-height: 1.333;
-  color: #000066; }
-  @media (max-width: 64rem) {
-    .richtext h4 {
-      font-size: 1.125rem; } }
-  @media (max-width: 40rem) {
-    .richtext h4 {
-      font-size: 1rem; } }
-
+  color: #000066;
+}
+@media (max-width: 64rem) {
+  .richtext h4 {
+    font-size: 1.125rem;
+  }
+}
+@media (max-width: 40rem) {
+  .richtext h4 {
+    font-size: 1rem;
+  }
+}
 .richtext h5 {
   font-size: 1rem;
   font-weight: bold;
   line-height: 1.222;
-  color: #000066; }
-  @media (max-width: 64rem) {
-    .richtext h5 {
-      font-size: 1.1rem; } }
-  @media (max-width: 40rem) {
-    .richtext h5 {
-      font-size: 1rem; } }
+  color: #000066;
+}
+@media (max-width: 64rem) {
+  .richtext h5 {
+    font-size: 1.1rem;
+  }
+}
+@media (max-width: 40rem) {
+  .richtext h5 {
+    font-size: 1rem;
+  }
+}
